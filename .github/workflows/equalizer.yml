@@ -10,10 +10,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: equalizer
-  cancel-in-progress: false
-
 env:
   IMAGE: kiwitcms/kiwitcms
   TAG: latest
@@ -26,6 +22,10 @@ jobs:
     outputs:
       needs_download: ${{ steps.counts.outputs.needs_download }}
     steps:
+      - name: Show runner IP
+        run: |
+          IP_ADDRESS=$(curl https://ifconfig.me)
+          echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: Compare kiwitcms/kiwitcms against kiwitcms/kiwi
         id: counts
         run: |
@@ -52,6 +52,10 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 4
     steps:
+      - name: Show runner IP
+        run: |
+          IP_ADDRESS=$(curl https://ifconfig.me)
+          echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: GET the Docker manifest 50 times
         run: |
           set -euo pipefail
@@ -81,5 +85,9 @@ jobs:
     container:
       image: kiwitcms/kiwitcms:latest
     steps:
+      - name: Show runner IP
+        run: |
+          IP_ADDRESS=$(curl https://ifconfig.me)
+          echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: manage.py help
         run: /Kiwi/manage.py help
