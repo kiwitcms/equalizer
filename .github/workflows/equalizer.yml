@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Show runner IP
         run: |
-          IP_ADDRESS=$(curl https://ifconfig.me)
+          IP_ADDRESS=$(curl -s https://ifconfig.me)
           echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: Compare kiwitcms/kiwitcms against kiwitcms/kiwi
         id: counts
@@ -54,7 +54,7 @@ jobs:
     steps:
       - name: Show runner IP
         run: |
-          IP_ADDRESS=$(curl https://ifconfig.me)
+          IP_ADDRESS=$(curl -s https://ifconfig.me)
           echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: GET the Docker manifest 50 times
         run: |
@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: Show runner IP
         run: |
-          IP_ADDRESS=$(curl https://ifconfig.me)
+          IP_ADDRESS=$(curl -s https://ifconfig.me)
           echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: manage.py help
         run: /Kiwi/manage.py help
