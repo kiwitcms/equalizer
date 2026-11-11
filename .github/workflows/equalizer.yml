@@ -55,99 +55,99 @@ jobs:
       fail-fast: false
       matrix:
         command:
-          - delete_stale_attachments
-          - changepassword
-          - createsuperuser
+          - admin_generator
           - captcha_clean
           - captcha_create_pool
-          - remove_stale_contenttypes
-          - init_db
-          - initial_setup
-          - migrations_order
-          - refresh_permissions
-          - set_domain
-          - upgrade
+          - changepassword
           - check
-          - compilemessages
-          - createcachetable
-          - dbshell
-          - diffsettings
-          - dumpdata
-          - flush
-          - inspectdb
-          - loaddata
-          - makemigrations
-          - migrate
-          - optimizemigration
-          - sendtestemail
-          - shell
-          - showmigrations
-          - sqlflush
-          - sqlmigrate
-          - sqlsequencereset
-          - squashmigrations
-          - startapp
-          - startproject
-          - test
-          - testserver
-          - delete_stale_comments
-          - admin_generator
+          - clean_duplicate_history
+          - clean_old_history
+          - clean_orphan_obj_perms
           - clean_pyc
           - clear_cache
+          - clearsessions
+          - collectstatic
           - compile_pyc
+          - compilemessages
           - create_command
           - create_jobs
           - create_template_tags
+          - createcachetable
+          - createsuperuser
+          - dbshell
           - delete_squashed_migrations
+          - delete_stale_attachments
+          - delete_stale_comments
           - describe_form
+          - diffsettings
           - drop_test_database
+          - dumpdata
           - dumpscript
           - export_emails
           - find_template
+          - findstatic
+          - flush
           - generate_password
+          - generate_rpc_schema
           - generate_secret_key
           - graph_models
+          - init_db
+          - initial_setup
+          - inspectdb
           - list_model_info
           - list_signals
+          - loaddata
           - mail_debug
+          - makemessages
+          - makemigrations
           - managestate
           - merge_model_instances
+          - migrate
+          - migrations_order
           - notes
+          - optimizemigration
+          - populate_history
           - print_settings
           - print_user_for_session
           - raise_test_exception
+          - refresh_permissions
+          - remove_stale_contenttypes
           - reset_db
           - reset_schema
           - runjob
           - runjobs
           - runprofileserver
           - runscript
+          - runserver
           - runserver_plus
+          - sendtestemail
           - set_default_site
+          - set_domain
           - set_fake_emails
           - set_fake_passwords
+          - shell
           - shell_plus
           - show_permissions
           - show_template_tags
           - show_urls
+          - showmigrations
           - sqlcreate
           - sqldiff
           - sqldsn
+          - sqlflush
+          - sqlmigrate
+          - sqlsequencereset
+          - squashmigrations
+          - startapp
+          - startproject
           - sync_s3
           - syncdata
+          - test
+          - testserver
           - unreferenced_files
           - update_permissions
+          - upgrade
           - validate_templates
-          - clean_orphan_obj_perms
-          - generate_rpc_schema
-          - clearsessions
-          - clean_duplicate_history
-          - clean_old_history
-          - populate_history
-          - collectstatic
-          - findstatic
-          - runserver
-          - makemessages
     steps:
       - name: Show runner IP
         run: |
