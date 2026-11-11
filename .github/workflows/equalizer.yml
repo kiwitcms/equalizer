@@ -20,7 +20,7 @@ env:
 jobs:
   compare:
     name: Compare pull counts
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     timeout-minutes: 2
     outputs:
       needs_download: ${{ steps.counts.outputs.needs_download }}
@@ -48,7 +48,7 @@ jobs:
     name: Pull manifest 50 times
     needs: compare
     if: needs.compare.outputs.needs_download == 'true'
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
       - name: GET the Docker manifest 50 times
