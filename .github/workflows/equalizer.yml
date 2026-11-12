@@ -47,6 +47,7 @@ jobs:
 
   manage-py:
     name: manage.py
+    needs: compare
     runs-on: ubuntu-26.04
     timeout-minutes: 10
     container:
