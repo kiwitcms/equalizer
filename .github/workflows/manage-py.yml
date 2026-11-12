@@ -1,8 +1,7 @@
-name: Equalizer
+name: manage.py
 
 on:
   schedule:
-    # GitHub's minimum interval; runs may be delayed at busy times.
     - cron: "0 * * * *"
   pull_request:
   workflow_dispatch:
@@ -15,18 +14,13 @@ env:
   TAG: latest
 
 jobs:
-  compare:
-    name: Compare pull counts
+  should-run:
     runs-on: ubuntu-26.04
     timeout-minutes: 2
     outputs:
-      needs_download: ${{ steps.counts.outputs.needs_download }}
+      should_run: ${{ steps.counts.outputs.should_run }}
     steps:
-      - name: Show runner IP
-        run: |
-          IP_ADDRESS=$(curl -s https://ifconfig.me)
-          echo "INFO: IP_ADDRESS=$IP_ADDRESS"
-      - name: Compare kiwitcms/kiwitcms against kiwitcms/kiwi
+      - name: Compare NEWER kiwitcms/kiwitcms against OLDER kiwitcms/kiwi
         id: counts
         run: |
           set -euo pipefail
@@ -39,15 +33,17 @@ jobs:
           echo "kiwitcms/kiwitcms: ${current} pulls"
           echo "kiwitcms/kiwi:     ${target} pulls"
 
+          # Docker Hub doesn't support renaming repositories and we'd really love to keep the
+          # existing badges. Employ the robots to help out with this for now
           if [ "${current}" -lt "${target}" ]; then
-            echo "needs_download=true" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
           else
-            echo "needs_download=false" >> "$GITHUB_OUTPUT"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
           fi
 
   manage-py:
     name: manage.py
-    needs: compare
+    needs: should-run
     runs-on: ubuntu-26.04
     timeout-minutes: 10
     container:
@@ -150,9 +146,5 @@ jobs:
           - upgrade
           - validate_templates
     steps:
-      - name: Show runner IP
-        run: |
-          IP_ADDRESS=$(curl -s https://ifconfig.me)
-          echo "INFO: IP_ADDRESS=$IP_ADDRESS"
       - name: manage.py ${{ matrix.command }} --help
         run: /Kiwi/manage.py ${{ matrix.command }} --help
