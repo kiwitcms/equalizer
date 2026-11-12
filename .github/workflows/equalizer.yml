@@ -3,7 +3,7 @@ name: Equalizer
 on:
   schedule:
     # GitHub's minimum interval; runs may be delayed at busy times.
-    - cron: "*/10 * * * *"
+    - cron: "0 * * * *"
   pull_request:
   workflow_dispatch:
 
